@@ -1,0 +1,5 @@
+![Update data presensi](<Screenshot 2025-10-31 093104.png>)
+![endpoint search nama](<Screenshot 2025-10-31 095210.png>)
+![endpoint search tanggal](<Screenshot 2025-10-31 095805.png>)
+![update tanggal yang tidak valid](<Screenshot 2025-10-31 103452.png>)
+![Delete](<Screenshot 2025-10-31 102044.png>)
