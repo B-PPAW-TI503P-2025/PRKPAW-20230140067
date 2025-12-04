@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
 
 function ReportPage() {
   const [reports, setReports] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
+  // =============================
+  // 🔥 FETCH REPORTS (Kode Perbaikan)
+  // =============================
   const fetchReports = async (query) => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -23,16 +25,33 @@ function ReportPage() {
         },
       };
 
-      
+      // Endpoint backend kamu yang benar 👇
+      const response = await axios.get(
+        `http://localhost:3001/api/reports/daily?nama=${query}`,
+        config
+      );
+
+      console.log("DATA:", response.data);
+
+      setReports(response.data.data);
       setError(null);
+
     } catch (err) {
-      
+      console.error(err);
+      setError("Gagal mengambil laporan");
     }
   };
 
+  // =============================
+  // Load data pertama kali
+  // =============================
   useEffect(() => {
-    fetchReports("");
-  }, [navigate]);
+    fetchReports(""); // ambil semua data
+  }, []);
+
+  // =============================
+  // Submit pencarian
+  // =============================
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     fetchReports(searchTerm);
@@ -80,6 +99,7 @@ function ReportPage() {
                 </th>
               </tr>
             </thead>
+
             <tbody className="bg-white divide-y divide-gray-200">
               {reports.length > 0 ? (
                 reports.map((presensi) => (
@@ -120,4 +140,3 @@ function ReportPage() {
 }
 
 export default ReportPage;
-
