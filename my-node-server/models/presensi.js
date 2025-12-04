@@ -10,16 +10,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Presensi.belongsTo(models.User, {
+        foreignKey: "userId",
+        as: "user",
+      });
       // define association here
     }
   }
   Presensi.init({
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    nama: {
-      type: DataTypes.STRING,
       allowNull: false,
     },
     checkIn: {
@@ -29,7 +29,15 @@ module.exports = (sequelize, DataTypes) => {
     checkOut: {
       type: DataTypes.DATE,
       allowNull: true, // Boleh null
-    }
+    },
+    latitude: {
+        type: DataTypes.DECIMAL(10, 7),
+        allowNull: false,
+    },
+    longitude: {
+        type: DataTypes.DECIMAL(10, 7),
+        allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Presensi',

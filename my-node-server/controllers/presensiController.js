@@ -8,6 +8,8 @@
  	  try {
  	    const { id: userId, nama: userName } = req.user;
  	    const waktuSekarang = new Date();
+
+		const { latitude, longitude } = req.body;
  	
  	    // 3. Ubah cara mencari data menggunakan 'findOne' dari Sequelize
  	    const existingRecord = await Presensi.findOne({
@@ -25,6 +27,8 @@
  	      userId: userId,
  	      nama: userName,
  	      checkIn: waktuSekarang,
+		  latitude: latitude || null,
+		  longitude: longitude || null,
  	    });
  	    
  	    const formattedData = {
